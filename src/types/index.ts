@@ -56,7 +56,7 @@ export interface Script {
   downloads: number;
   created_at: string;
   updated_at?: string;
-  tags?: Tag[];
+  tags?: any[];
   related?: Script[];
 }
 
@@ -134,11 +134,13 @@ export interface DashboardStats {
     trashScripts: number;
     totalViews: number;
     totalDownloads: number;
-    contributorsCount: number;
+    contributorsCount?: number;
+    totalContributors?: number;
   };
-  topViewed: Script[];
-  topDownloaded: Script[];
+  topViewed?: Script[];
+  topDownloaded?: Script[];
+  topScripts?: Script[];
   recentSubmissions: Submission[];
-  recentAuditLogs: AuditLog[];
+  recentAuditLogs?: AuditLog[];
+  auditLogs?: AuditLog[];
 }
-

@@ -183,6 +183,7 @@ export const api = {
         language: (formData.get("language") as string) || "Bahasa Indonesia",
         synopsis: (formData.get("synopsis") as string) || "",
         status: "Pending",
+        copyright_agreed: 1,
         created_at: new Date().toISOString().replace("T", " ").substring(0, 19)
       });
       localStorage.setItem("rn_local_submissions", JSON.stringify(subs));
