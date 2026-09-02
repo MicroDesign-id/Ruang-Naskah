@@ -16,7 +16,6 @@ import {
   Film,
   Moon,
   Mic,
-  ShieldCheck,
   TrendingUp,
   Clock
 } from "lucide-react";
@@ -43,8 +42,8 @@ export const Home: React.FC = () => {
           api.getCategories(),
           api.getFeatured(),
         ]);
-        setCategories(catsRes);
-        setFeatured(featRes);
+        if (Array.isArray(catsRes)) setCategories(catsRes);
+        if (featRes && Array.isArray(featRes.recent)) setFeatured(featRes);
       } catch (err) {
         console.error("Error loading home data:", err);
       } finally {
@@ -168,7 +167,7 @@ export const Home: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {categories.map((cat) => {
+          {(categories || []).map((cat) => {
             const conf = CATEGORY_ICON_MAP[cat.slug] || {
               icon: <Theater className="h-6 w-6 text-primary" />,
             };
@@ -221,9 +220,9 @@ export const Home: React.FC = () => {
           </Link>
         </div>
 
-        {featured.recent.length > 0 ? (
+        {(featured?.recent || []).length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featured.recent.map((script) => (
+            {(featured.recent || []).map((script) => (
               <ScriptCard key={script.id} script={script} />
             ))}
           </div>
@@ -255,9 +254,9 @@ export const Home: React.FC = () => {
           </Link>
         </div>
 
-        {featured.popular.length > 0 ? (
+        {(featured?.popular || []).length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featured.popular.map((script) => (
+            {(featured.popular || []).map((script) => (
               <ScriptCard key={script.id} script={script} />
             ))}
           </div>
